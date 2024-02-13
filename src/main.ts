@@ -2,13 +2,11 @@ import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
 import { AppModule } from './app/app.module'
+import { WsAdapter } from '@nestjs/platform-ws'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
-  app.enableCors({
-    origin: true,
-    credentials: true,
-  })
+  app.useWebSocketAdapter(new WsAdapter(app))
 
   const options = new DocumentBuilder()
     .setTitle('Nest Project layout')
@@ -24,5 +22,6 @@ async function bootstrap() {
   app.enableShutdownHooks()
 
   await app.listen(9091)
+  console.log(`application is running on: ${await app.getUrl()}`)
 }
 bootstrap()

@@ -1,10 +1,5 @@
 import { Module, type MiddlewareConsumer } from '@nestjs/common'
 import { EventsModule } from './events/events.module'
-import { ConfigModule, type ConfigService } from '@nestjs/config'
-import appConfig from './config/app.config'
-import { validate } from './config/env.validator'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
 import { PrismaModule } from './prisma/prisma.module'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -12,8 +7,6 @@ const cookieSession = require('cookie-session')
 
 @Module({
   imports: [EventsModule, PrismaModule],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
 
